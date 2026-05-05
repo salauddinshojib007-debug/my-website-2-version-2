@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PCJNKKXQ');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTM Form Tracking Practice Lab</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; background: #f4f4f9; }
+        section { background: white; padding: 20px; margin-bottom: 30px; border-radius: 8px; border: 1px solid #ddd; }
+        h2 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        .success-msg { display: none; color: green; font-weight: bold; margin-top: 10px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+        input { padding: 8px; width: 250px; margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PCJNKKXQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <h1>GTM Form Tracking Practice Lab</h1>
+    <p>Use these forms to test the tracking methods.</p>
+
+    <section>
+        <h2>Method 1 & 2: Standard Submission</h2>
+        <form id="standard-form" action="https://www.google.com/search" method="GET">
+            <label>Search Query:</label>
+            <input type="text" name="q" placeholder="Type something..." required>
+            <button type="submit">Submit (Redirects)</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Method 3: AJAX Submission</h2>
+        <div id="ajax-form-container">
+            <input type="email" id="ajax-email" placeholder="email@example.com">
+            <button onclick="simulateAjax()">Subscribe via AJAX</button>
+            <p id="ajax-success" class="success-msg">Thanks! Data sent via background request.</p>
+        </div>
+        <script>
+            function simulateAjax() {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'ajaxComplete',
+                    'attributes': { 'message': 'Success' }
+                });
+                document.getElementById('ajax-success').style.display = 'block';
+            }
+        </script>
+    </section>
+
+    <section>
+        <h2>Method 6: Custom Data Layer Event</h2>
+        <p>This is the most robust method for GTM.</p>
+        <button id="btn-custom-submit" onclick="triggerDataLayer(this)">Send dataLayer.push</button>
+        
+        <script>
+            function triggerDataLayer(element) {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'formSubmission',
+                    'formType': 'Practice Lab',
+                    'formPosition': 'Bottom Section',
+                    'buttonID': element.id,           // Captures "btn-custom-submit"
+                    'buttonText': element.innerText, // Captures "Send dataLayer.push"
+                    'gtm.element': element            // Helps GTM debugger identify the element
+                });
+                alert('Event "formSubmission" pushed with ID: ' + element.id);
+            }
+        </script>
+    </section>
+
+</body>
+</html>
